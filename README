@@ -1,4 +1,4 @@
-run_cnn_chime3.sh is a Kaldi script for training the CNN-DNN based decoder for evaluation of 
+run_cnn_chime3.sh is a Kaldi recipe script for training and decoding using a CNN-DNN + sMBR based decoder for evaluation of 
 the CHiME-3 challenge dataset.
 %%%%%%%
 The CNN-DNN implementation is based on 
