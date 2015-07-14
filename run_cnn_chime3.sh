@@ -2,9 +2,25 @@
 
 
 ##################################################################
-# Kaldi Script for CNN training on Chime-3 data. The input features used here are (Mel+3 pitch feats)+delta+delta-delta features (40 Mel banks + 3 pitch feats with delta and double-delta has dimension 129). These features are used since these are found to be the best features in Tara Sainath's paper on CNN.
+# Kaldi Script for CNN-DNN + sMBR training on Chime-3 data. The input features used here are 
+# (Mel+3 pitch feats)+delta+delta-delta features (40 Mel banks + 3 pitch feats 
+# with delta and double-delta has dimension 129).
+# These features are used since these are found to be the best features in Tara Sainath's paper on CNN.
 
-# RUN THIS ONLY AFTER RUNNING DATA PREPARATION SCRIPT FOR CHIME ENHANCED DATA (Here we run it after the run_gmm.sh script which already does this step.)
+# T.N. Sainath, A.-R. Mohamed, B. Kingsbury, and B. Ramabhadran, “Deep convolutional neural networks
+# for LVCSR,” in Acoustics, Speech and Signal Processing (ICASSP), 2013 IEEE International Conference on,
+# May 2013, pp. 8614–8618.
+
+# If you use this code , please add the following citations
+#[1] D. Baby, T. Virtanen and H. Van hamme, "Coupled Dictionary-based Speech Enhancement for CHiME-3 Challenge", 
+# Submitted to IEEE 2015 Automatic Speech Recognition and Understanding Workshop (ASRU), 2015.
+# [2] Jon Barker, Ricard Marxer, Emmanuel Vincent, and Shinji Watanabe, "The third 'CHiME' 
+# Speech Separation and Recognition Challenge: Dataset, task and baselines", 
+# submitted to IEEE 2015 Automatic Speech Recognition and Understanding Workshop (ASRU), 2015.
+
+
+# RUN THIS ONLY AFTER RUNNING DATA PREPARATION SCRIPT FOR CHIME ENHANCED DATA 
+# (Here we run it after the run_gmm.sh script which already does this step.)
 # Else, add these two lines to the code
 #local/real_enhan_chime3_data_prep.sh $enhan $enhan_data || exit 1;
 #local/simu_enhan_chime3_data_prep.sh $enhan $enhan_data || exit 1;
@@ -13,7 +29,8 @@
 # Modified Code From KALDI CNN Recipe for RM dataset (kaldi-trunk/egs/rm/s5/local/run_cnn.sh).
 # Modified by Deepak Baby, KU Leuven, June 2015.
 
-# Usage : 'local/run_cnn_dpk.sh $enhancement_method'  (if data prep is already done, else add the enhanced data folder as the second argument)
+# Usage : 'local/run_cnn_dpk.sh $enhancement_method'  
+#(if data prep is already done, else add the enhanced data folder as the second argument)
 ###################################################################
 
 
@@ -47,7 +64,7 @@ done
 utils/combine_data.sh data-fbank-cnn/tr05_multi_$enhan data-fbank-cnn/tr05_simu_$enhan data-fbank-cnn/tr05_real_$enhan
 utils/combine_data.sh data-fbank-cnn/dt05_multi_$enhan data-fbank-cnn/dt05_simu_$enhan data-fbank-cnn/dt05_real_$enhan
 
-echo "Starting CNN pretraining " 
+echo "Starting CNN (pre)training " 
 # Run the CNN pre-training.
 if [ $stage -le 1 ]; then
   dir=exp/cnn4c_$enhan
@@ -153,7 +170,7 @@ steps/nnet/decode.sh --nj 4 --num-threads 4 --acwt 0.10 --config conf/decode_dnn
 fi
 
 
-# decoded results of enhan speech using enhan DNN AMs
+# decoded results of enhan speech using enhan CNN AMs
 for x in cnn4c_$enhan exp/cnn4c_pretrain-dbn_dnn_$enhan ; do
 echo "Showing Best results from $x"
 local/chime3_calc_wers.sh $x $enhan > $x/best_wer_$enhan.result
