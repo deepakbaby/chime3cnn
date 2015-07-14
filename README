@@ -1,9 +1,16 @@
-run_cnn_chime3.sh is a Kaldi script for training the CNN-DNN based decoder for evaluation of the CHiME-3 challenge dataset.
+run_cnn_chime3.sh is a Kaldi script for training the CNN-DNN based decoder for evaluation of 
+the CHiME-3 challenge dataset.
 %%%%%%%
 The CNN-DNN implementation is based on 
-T.N. Sainath, A.-R. Mohamed, B. Kingsbury, and  B. Ramabhadran, “Deep convolutional neural networks for LVCSR,” in Acoustics, Speech and Signal Processing (ICASSP), 2013 IEEE International Conference on, May 2013, pp. 8614–8618. 
+T.N. Sainath, A.-R. Mohamed, B. Kingsbury, and  B. Ramabhadran, “Deep convolutional neural networks for LVCSR,” 
+in Acoustics, Speech and Signal Processing (ICASSP), 2013 IEEE International Conference on, May 2013, pp. 8614–8618. 
 
 If you use this code, please also cite
+[1] D. Baby, T. Virtanen and H. Van hamme, "Coupled Dictionary-based Speech Enhancement for CHiME-3 Challenge", 
+ Submitted to IEEE 2015 Automatic Speech Recognition and Understanding Workshop (ASRU), 2015.
+[2] Jon Barker, Ricard Marxer, Emmanuel Vincent, and Shinji Watanabe, "The third 'CHiME' 
+ Speech Separation and Recognition Challenge: Dataset, task and baselines", 
+ submitted to IEEE 2015 Automatic Speech Recognition and Understanding Workshop (ASRU), 2015.
 
 %%%%%%%
 USAGE:
@@ -12,4 +19,3 @@ Execute the run.sh script already in the CHiME-3 folder for the necessary alignm
 If run.sh is already executed for the custom $enhancement_method, run the provided script as
 
 run_cnn_chime3.sh $enhancement_method
-
